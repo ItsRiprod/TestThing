@@ -40,6 +40,7 @@
     "react-router-dom": "^6.26.2",
     "react-select": "^5.8.3",
     "react-tag-input": "^6.10.3",
+    "update-electron-app": "^3.1.0",
     "uuid": "^10.0.0",
     "ws": "^8.17.1",
     "zustand": "^5.0.0-rc.2"
