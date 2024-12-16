@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "update-electron-app": "^3.1.0"
+  }
+}
