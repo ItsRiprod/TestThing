@@ -53,7 +53,7 @@ const WelcomeWidget: React.FC = () => {
           >
             <IconYoutube className="fill-[#ff0033] group-hover:fill-white" />
             <p className="group-hover:hidden">Getting Started</p>
-            <p className="group-hover:inline hidden">Not Implemented</p>
+            <p className="group-hover:inline hidden">Running v0.10.6</p>
           </Button>
         </div>
       </div>
