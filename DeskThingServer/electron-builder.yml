@@ -54,7 +54,9 @@ appImage:
   artifactName: ${name}-${os}-${version}-setup.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://github.com/ItsRiprod/DeskThing
+  provider: github
+  owner: itsriprod
+  repo: DeskThing
+  token: ${{ secrets.GITHUB_TOKEN }}
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
