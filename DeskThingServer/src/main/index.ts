@@ -17,8 +17,8 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-import 'update-electron-app'
-
+import * as electron from 'update-electron-app'
+console.log('[Index] Starting', electron)
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null
 let clientWindow: BrowserWindow | null = null
