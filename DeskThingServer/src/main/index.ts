@@ -17,10 +17,7 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-
-if (process.env.NODE_ENV !== 'development') {
-  require('update-electron-app')()
-}
+import 'update-electron-app'
 
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null

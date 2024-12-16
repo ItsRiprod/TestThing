@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { IconDiscord, IconLink, IconYoutube } from '@renderer/assets/icons'
+import { IconAlbum, IconDiscord, IconLink, IconYoutube } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import { useNavigate } from 'react-router-dom'
 import Lottie from 'lottie-react'
@@ -51,9 +51,9 @@ const WelcomeWidget: React.FC = () => {
             onClick={() => window.open('https://deskthing.app/youtube', '_blank')}
             className={`delay-300 text-sm items-center border-[#ff0033] border gap-1 hover:bg-[#ff0033] group hover:text-white transition-[transform,opacity] duration-500 overflow-hidden text-nowrap ${showText ? 'opacity-100' : '-translate-y-10 opacity-0'}`}
           >
-            <IconYoutube className="fill-[#ff0033] group-hover:fill-white" />
+            <IconAlbum className="fill-[#ff0033] group-hover:fill-white" />
             <p className="group-hover:hidden">Getting Started</p>
-            <p className="group-hover:inline hidden">Running v0.10.10</p>
+            <p className="group-hover:inline hidden">Running v0.10.11</p>
           </Button>
         </div>
       </div>
