@@ -138,15 +138,17 @@ export async function handleDataFromApp(app: string, appData: IncomingData): Pro
             if (appData.payload) {
               const Action: Action = {
                 name: appData.payload.name || 'Default Name',
-                id: appData.payload.id || 'unsetid',
                 description: appData.payload.description || 'No description provided',
+                id: appData.payload.id || 'unsetid',
                 value: appData.payload.value || undefined,
                 value_options: appData.payload.value_options || [],
+                value_instructions: appData.payload.value_instructions || '',
                 icon: appData.payload.icon || undefined,
+                source: app,
                 version: appData.payload.version || '0.0.0',
                 version_code: appData.payload.version_code || 0,
-                enabled: true,
-                source: app
+                tag: appData.payload.tag || '',
+                enabled: true
               }
               keyMapStore.addAction(Action)
               loggingStore.log(
@@ -221,13 +223,14 @@ export async function requestUserInput(appName: string, scope: AuthScopes): Prom
 export async function sendMessageToApp(appName: string, data: IncomingData): Promise<void> {
   const { AppHandler } = await import('./appState')
   const appHandler = AppHandler.getInstance()
-  loggingStore.log(
-    MESSAGE_TYPES.LOGGING,
-    `[sendMessageToApp] Sending message to ${appName} with ${data.type}`
-  )
+
   try {
     const app = appHandler.get(appName)
     if (app && typeof app.func.toClient === 'function') {
+      loggingStore.log(
+        MESSAGE_TYPES.LOGGING,
+        `[sendMessageToApp] Sending message to ${appName} with ${data.type}`
+      )
       ;(app.func.toClient as ToClientType)(data)
     } else {
       loggingStore.log(

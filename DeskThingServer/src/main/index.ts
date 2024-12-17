@@ -17,24 +17,9 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-//import { autoUpdater } from 'electron-updater'
-//import squirrelStartup from 'electron-squirrel-startup'
+import * as electron from 'update-electron-app'
 
-// if (squirrelStartup) {
-//   app.quit()
-// }
-
-// autoUpdater.on('error', (error) => {
-//   console.log('Update error:', error)
-// })
-
-// autoUpdater.on('checking-for-update', () => {
-//   console.log('Checking for updates...')
-// })
-
-// autoUpdater.on('update-available', (info) => {
-//   console.log('Update available:', info)
-// })
+console.log('Startup Electron ', electron)
 
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null
@@ -398,7 +383,6 @@ if (!app.requestSingleInstanceLock()) {
 
   // Initialize application when ready
   app.whenReady().then(async () => {
-    // autoUpdater.checkForUpdatesAndNotify()
     // Handle custom protocol URLs
     app.on('open-url', (event, url) => {
       event.preventDefault()
@@ -452,12 +436,14 @@ if (!app.requestSingleInstanceLock()) {
  * Handles custom protocol URLs
  * @param url - The URL to handle
  */
-function handleUrl(url: string | undefined): void {
+function handleUrl(url: string | undefined, window: BrowserWindow | null = mainWindow): void {
   if (url && url.startsWith('deskthing://')) {
     const path = url.replace('deskthing://', '')
 
-    if (mainWindow) {
-      mainWindow.webContents.send('handle-protocol-url', path)
+    if (window) {
+      window.webContents.send('handle-protocol-url', path)
+    } else {
+      console.log('No main window found')
     }
   }
 }
@@ -481,7 +467,7 @@ async function loadModules(): Promise<void> {
       loadAndRunEnabledApps()
     })
 
-    import('./handlers/musicHandler')
+    import('./services/music/musicHandler')
   } catch (error) {
     console.error('Error loading modules:', error)
   }
@@ -494,8 +480,19 @@ async function sendIpcAuthMessage(
 ): Promise<void> {
   mainWindow?.webContents.send('display-user-form', requestId, scope)
 }
-async function sendIpcData(dataType: string, data: unknown): Promise<void> {
-  mainWindow?.webContents.send(dataType, data)
+async function sendIpcData(
+  dataType: string,
+  data: unknown,
+  window: BrowserWindow | null = mainWindow
+): Promise<void> {
+  window?.webContents.send(dataType, data)
 }
 
-export { sendIpcAuthMessage, openAuthWindow, sendIpcData }
+export {
+  sendIpcAuthMessage,
+  openAuthWindow,
+  sendIpcData,
+  createMainWindow,
+  createClientWindow,
+  handleUrl
+}

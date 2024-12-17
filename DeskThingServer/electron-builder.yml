@@ -13,6 +13,8 @@ asarUnpack:
   - resources/**
   - bin/**
   - "!resources/{,/**/}*.{h,hpp,cpp,cc,cxx}"
+  - '**/node_modules/sharp/**/*'
+  - '**/node_modules/@img/**/*'
 protocols:
   - name: "DeskThing Protocol"
     schemes:
@@ -23,18 +25,11 @@ win:
   extraFiles:
     - from: 'adb_source/win'
       to: 'resources/win'
-  publisherName: Riprod
-  target:
-    - target: nsis
-      arch:
-        - x64
 nsis:
   artifactName: ${name}-${os}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
-  createDesktopShortcut: onFirstRunOnly
-  oneClick: true
-  perMachine: false
+  createDesktopShortcut: always
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -62,6 +57,6 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  url: https://github.com/ItsRiprod/TestThing
+  url: https://github.com/ItsRiprod/DeskThing
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/

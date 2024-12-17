@@ -3,9 +3,6 @@ import { App, AppInstance, Manifest, AppReturnData, MESSAGE_TYPES } from '@share
 import { sendConfigData, sendSettingsData } from '../client/clientCom'
 import loggingStore from '../../stores/loggingStore'
 
-/**
- * TODO: Sync with the file
- */
 export class AppHandler {
   public static instance: AppHandler
   private apps: { [key: string]: AppInstance } = {}
