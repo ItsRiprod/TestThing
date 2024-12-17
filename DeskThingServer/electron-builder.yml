@@ -26,10 +26,8 @@ win:
   publisherName: Riprod
   target:
     - target: nsis
-    arch: x64
-
-squirrelWindows:
-  artifactName: ${name}-${os}-${version}-setup.${ext}
+      arch:
+        - x64
 nsis:
   artifactName: ${name}-${os}-${version}-setup.${ext}
   shortcutName: ${productName}
