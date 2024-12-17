@@ -18,12 +18,6 @@
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir"
   },
-  "build": {
-    "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/ItsRiprod/TestThing/main/resources/icon.ico",
-      "loadingGif": "build/install-spinner.gif"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/itsriprod/TestThing.git"
