@@ -20,13 +20,13 @@
   },
   "build": {
     "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/ItsRiprod/DeskThing/main/resources/icon.ico",
+      "iconUrl": "https://raw.githubusercontent.com/ItsRiprod/TestThing/main/resources/icon.ico",
       "loadingGif": "build/install-spinner.gif"
     }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/itsriprod/DeskThing.git"
+    "url": "https://github.com/itsriprod/TestThing.git"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
