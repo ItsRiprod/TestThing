@@ -463,7 +463,7 @@ async function loadModules(): Promise<void> {
       loadAndRunEnabledApps()
     })
 
-    import('./handlers/musicHandler')
+    import('./services/music/musicHandler')
   } catch (error) {
     console.error('Error loading modules:', error)
   }
