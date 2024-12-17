@@ -1,10 +1,10 @@
 {
   "name": "deskthing",
-  "version": "0.10.4",
+  "version": "0.10.11",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
-  "homepage": "https://github.com/ItsRiprod/TestThing",
+  "homepage": "https://github.com/ItsRiprod/DeskThing",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -15,18 +15,12 @@
     "dev": "electron-vite dev",
     "debug": "electron-vite dev --inspect=8893",
     "build": "npm run typecheck && electron-vite build && electron-builder",
-    "postinstall": "electron-builder install-app-deps && electron-rebuild",
+    "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir"
-  },
-  "build": {
-    "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/ItsRiprod/DeskThing/main/resources/icon.ico",
-      "loadingGif": "build/install-spinner.gif"
-    }
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/itsriprod/TestThing.git"
+    "url": "https://github.com/itsriprod/DeskThing.git"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
@@ -55,7 +49,6 @@
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
     "@electron-toolkit/eslint-config-ts": "^1.0.1",
     "@electron-toolkit/tsconfig": "^1.0.1",
-    "@types/electron-squirrel-startup": "^1.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^18.19.9",
     "@types/react": "^18.2.48",
@@ -63,7 +56,6 @@
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "electron-builder": "^24.9.1",
-    "electron-rebuild": "^3.2.9",
     "electron-vite": "^2.0.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
@@ -75,7 +67,6 @@
     "tailwindcss": "^3.4.4",
     "typedoc": "^0.26.10",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12",
-    "vitest": "^2.1.8"
+    "vite": "^5.0.12"
   }
 }

@@ -17,10 +17,7 @@ import { defaultData } from '@server/static/defaultMapping'
 import { isValidButtonMapping, isValidFileStructure, isValidMappingStructure } from './utilsMaps'
 import path from 'path'
 
-/**
- * Loads the mapping data from a file and validates it. If the file is corrupt or missing, it will use the default mapping data and save it to the file.
- * @returns {Promise<MappingStructure>} The validated mapping data.
- */
+// Loads the mapping from the file
 export const loadMappings = async (): Promise<MappingStructure> => {
   const data = readFromFile<MappingFileStructure>(path.join('mappings', 'mappings.json'))
   if (!data || data?.version !== defaultData.version) {
@@ -54,11 +51,7 @@ export const loadMappings = async (): Promise<MappingStructure> => {
   return parsedData
 }
 
-/**
- * Fetches and validates the mapping profiles from the file data.
- * @param {MappingFileStructure} fileData - The mapping file data to fetch the profiles from.
- * @returns {Promise<MappingStructure>} The validated mapping structure, including the fetched profiles.
- */
+// Fetches and processes profile data from mapping files
 const fetchProfiles = async (fileData: MappingFileStructure): Promise<MappingStructure> => {
   // Map through each profile file and load its data
   const profiles = await Promise.all(
@@ -91,11 +84,6 @@ const fetchProfiles = async (fileData: MappingFileStructure): Promise<MappingStr
   return mappingStructure
 }
 
-/**
- * Saves the mapping profiles to individual JSON files in the 'mappings' directory.
- * @param {MappingStructure} mappingData - The mapping data to save.
- * @returns {Promise<MappingFileStructure>} The updated mapping file structure, including the saved profiles.
- */
 const saveProfiles = async (mappingData: MappingStructure): Promise<MappingFileStructure> => {
   const profiles: Profile[] = await Promise.all(
     Object.values(mappingData.profiles).map(async (profile) => {
@@ -109,11 +97,7 @@ const saveProfiles = async (mappingData: MappingStructure): Promise<MappingFileS
   return { ...mappingData, profiles }
 }
 
-/**
- * Saves the button mappings to a JSON file.
- * @param {MappingStructure} mapping - The mapping data to save.
- * @returns {Promise<void>} A promise that resolves when the mappings have been saved.
- */
+// Saves the mapping
 export const saveMappings = async (mapping: MappingStructure): Promise<void> => {
   const isValidMapping = await isValidMappingStructure(mapping)
   if (isValidMapping) {
@@ -130,24 +114,12 @@ export const saveMappings = async (mapping: MappingStructure): Promise<void> => 
   }
 }
 
-/**
- * Exports a button mapping profile to a file.
- * @param {ButtonMapping} profile - The button mapping profile to export.
- * @param {string} filePath - The file path to save the profile to.
- * @returns {Promise<void>} A promise that resolves when the profile has been exported.
- */
 export const exportProfile = async (profile: ButtonMapping, filePath: string): Promise<void> => {
   writeToGlobalFile<ButtonMapping>(profile, filePath)
 
   loggingStore.log(MESSAGE_TYPES.LOGGING, `MAPHANDLER: Profile ${profile} exported to ${filePath}`)
 }
 
-/**
- * Imports a button mapping profile from a file.
- * @param {string} filePath - The file path to load the profile from.
- * @param {string} profileName - The name of the profile to import.
- * @returns {Promise<ButtonMapping | void>} The imported button mapping profile, or `void` if the import failed.
- */
 export const importProfile = async (
   filePath: string,
   profileName: string

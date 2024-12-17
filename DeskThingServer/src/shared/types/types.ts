@@ -158,7 +158,7 @@ export type SongData = {
   liked?: boolean
   color?: color
 }
-export interface color {
+interface color {
   value: number[]
   rgb: string
   rgba: string

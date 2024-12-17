@@ -17,9 +17,7 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-import * as electron from 'update-electron-app'
-
-console.log('Startup Electron ', electron)
+import 'update-electron-app'
 
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null
@@ -436,14 +434,12 @@ if (!app.requestSingleInstanceLock()) {
  * Handles custom protocol URLs
  * @param url - The URL to handle
  */
-function handleUrl(url: string | undefined, window: BrowserWindow | null = mainWindow): void {
+function handleUrl(url: string | undefined): void {
   if (url && url.startsWith('deskthing://')) {
     const path = url.replace('deskthing://', '')
 
-    if (window) {
-      window.webContents.send('handle-protocol-url', path)
-    } else {
-      console.log('No main window found')
+    if (mainWindow) {
+      mainWindow.webContents.send('handle-protocol-url', path)
     }
   }
 }
@@ -467,7 +463,7 @@ async function loadModules(): Promise<void> {
       loadAndRunEnabledApps()
     })
 
-    import('./services/music/musicHandler')
+    import('./handlers/musicHandler')
   } catch (error) {
     console.error('Error loading modules:', error)
   }
@@ -480,19 +476,8 @@ async function sendIpcAuthMessage(
 ): Promise<void> {
   mainWindow?.webContents.send('display-user-form', requestId, scope)
 }
-async function sendIpcData(
-  dataType: string,
-  data: unknown,
-  window: BrowserWindow | null = mainWindow
-): Promise<void> {
-  window?.webContents.send(dataType, data)
+async function sendIpcData(dataType: string, data: unknown): Promise<void> {
+  mainWindow?.webContents.send(dataType, data)
 }
 
-export {
-  sendIpcAuthMessage,
-  openAuthWindow,
-  sendIpcData,
-  createMainWindow,
-  createClientWindow,
-  handleUrl
-}
+export { sendIpcAuthMessage, openAuthWindow, sendIpcData }

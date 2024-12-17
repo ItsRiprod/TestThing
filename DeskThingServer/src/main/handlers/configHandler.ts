@@ -1,18 +1,3 @@
-/**
- * Configuration Handler Module
- *
- * This module handles reading and writing application configuration data to/from files.
- * It provides functionality to manage the application's data persistence layer, including:
- * - Reading app configuration from JSON files
- * - Writing app configuration to JSON files
- * - Maintaining default configuration values
- * - Error handling for file operations
- * - IPC communication for configuration updates
- *
- * The configuration data follows the AppData interface structure and is stored in 'apps.json'.
- * If the configuration file doesn't exist, it will be created with default values.
- */
-
 console.log('[Config Handler] Starting')
 import { sendIpcData } from '..'
 import { AppData, App, MESSAGE_TYPES, Manifest, ButtonMapping } from '@shared/types'
@@ -26,13 +11,7 @@ const defaultData: AppData = {
   }
 }
 
-/**
- * Reads the application data from a file and returns it as an `AppData` object.
- * If the file does not exist, it creates a new file with the default data and returns it.
- * If there is an error reading the file, it returns the default data.
- *
- * @returns {AppData} The application data read from the file, or the default data if the file does not exist or there is an error.
- */
+// Helper function to read data
 const readData = (): AppData => {
   const dataFilePath = 'apps.json'
   try {
@@ -50,12 +29,7 @@ const readData = (): AppData => {
   }
 }
 
-/**
- * Writes the provided `AppData` object to a file named 'apps.json'. If the write is successful, it also sends the data to the web UI via the `sendIpcData` function. If there is an error writing the data, it logs the error to the `loggingStore`.
- *
- * @param {AppData} data - The `AppData` object to be written to the file.
- * @returns {void}
- */
+// Helper function to write data
 const writeData = (data: AppData): void => {
   try {
     const result = writeToFile<AppData>(data, 'apps.json')
@@ -69,12 +43,7 @@ const writeData = (data: AppData): void => {
   }
 }
 
-/**
- * Updates the application data by either adding a new app or updating an existing one.
- *
- * @param {App} newApp - The new app to be added or updated.
- * @returns {Promise<void>} - A Promise that resolves when the data has been written to the file.
- */
+// Set data function
 const setAppData = async (newApp: App): Promise<void> => {
   const data = readData()
 
@@ -91,25 +60,13 @@ const setAppData = async (newApp: App): Promise<void> => {
   writeData(data)
 }
 
-/**
- * Updates the application data by setting the `apps` property of the `AppData` object to the provided `appsList` array.
- *
- * @param {App[]} appsList - The new list of apps to be set in the `AppData` object.
- * @returns {Promise<void>} - A Promise that resolves when the data has been written to the file.
- */
+// Set data function
 const setAppsData = async (appsList: App[]): Promise<void> => {
   const data = readData()
   data.apps = appsList
   writeData(data)
 }
 
-/**
- * Adds or updates the manifest for an existing application.
- *
- * @param {Manifest} manifest - The new manifest to be added or updated.
- * @param {string} appName - The name of the application to update.
- * @returns {void}
- */
 const addAppManifest = (manifest: Manifest, appName: string): void => {
   const data = readData()
 
@@ -126,14 +83,6 @@ const addAppManifest = (manifest: Manifest, appName: string): void => {
   writeData(data)
 }
 
-/**
- * Adds or updates a configuration value in the application data.
- *
- * @param {string} configName - The name of the configuration to add or update.
- * @param {string | Array<string>} config - The new configuration value or array of values to set.
- * @param {AppData} [data=readData()] - The application data object to modify. Defaults to the result of `readData()`.
- * @returns {void}
- */
 const addConfig = (configName: string, config: string | Array<string>, data = readData()): void => {
   if (!data.config) {
     const val = {}
@@ -176,22 +125,12 @@ const getConfig = (
   return { [configName]: data.config[configName] }
 }
 
-/**
- * Retrieves the application data.
- *
- * @returns {AppData} The application data.
- */
+// Get data function
 const getAppData = (): AppData => {
   const data = readData()
   return data
 }
 
-/**
- * Retrieves an application by its name.
- *
- * @param appName - The name of the application to retrieve.
- * @returns The application if found, or `undefined` if not found.
- */
 const getAppByName = (appName: string): App | undefined => {
   const data = readData()
 
@@ -200,13 +139,6 @@ const getAppByName = (appName: string): App | undefined => {
 
   return foundApp
 }
-
-/**
- * Retrieves an application by its index.
- *
- * @param index - The index of the application to retrieve.
- * @returns The application if found, or `undefined` if not found.
- */
 const getAppByIndex = (index: number): App | undefined => {
   const data = readData()
 
@@ -216,12 +148,6 @@ const getAppByIndex = (index: number): App | undefined => {
   return foundApp
 }
 
-/**
- * Purges the configuration for the specified application.
- *
- * @param appName - The name of the application to purge the configuration for.
- * @returns A Promise that resolves when the configuration has been purged.
- */
 const purgeAppConfig = async (appName: string): Promise<void> => {
   loggingStore.log(MESSAGE_TYPES.LOGGING, `Purging app: ${appName}`)
   const data = readData()

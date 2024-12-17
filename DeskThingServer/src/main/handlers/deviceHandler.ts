@@ -9,16 +9,6 @@ import { Client, ClientManifest, MESSAGE_TYPES, ReplyData, ReplyFn } from '@shar
 import settingsStore from '../stores/settingsStore'
 import { getLatestRelease } from './githubHandler'
 
-/**
- * Handles device data received from the client.
- *
- * This function is responsible for processing the device data received from the client
- * and taking appropriate actions based on the type of data. Currently, it handles the
- * 'version_status' type and sends the data to the IPC channel for further processing.
- *
- * @param data - The device data received from the client as a JSON string.
- * @returns Promise<void>
- */
 export const HandleDeviceData = async (data: string): Promise<void> => {
   try {
     const deviceData = JSON.parse(data)
@@ -36,16 +26,6 @@ export const HandleDeviceData = async (data: string): Promise<void> => {
   }
 }
 
-/**
- * Retrieves the version of the device manifest.
- *
- * This function uses ADB commands to retrieve the contents of the device's manifest file,
- * and then extracts the version information from the response. If the version is not found
- * in the manifest, it returns '0.0.0'.
- *
- * @param deviceId - The ID of the device to retrieve the manifest version from.
- * @returns A Promise that resolves to the version string from the device manifest.
- */
 export const getDeviceManifestVersion = async (deviceId: string): Promise<string> => {
   try {
     const manifestPath = '/usr/share/qt-superbird-app/webapp/manifest.js'
@@ -63,14 +43,6 @@ export const getDeviceManifestVersion = async (deviceId: string): Promise<string
   }
 }
 
-/**
- * Configures a device by performing various setup tasks, such as opening a socket port,
- * checking for the client application, and pushing the web app to the device.
- *
- * @param deviceId - The ID of the device to configure.
- * @param reply - An optional callback function to send logging information back to the caller.
- * @returns A Promise that resolves when the device configuration is complete.
- */
 export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promise<void> => {
   const settings = await settingsStore.getSettings()
 
@@ -259,25 +231,6 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
   }
 }
 
-/**
- * Handles the process of pushing a web application to a device.
- *
- * This function performs the following steps:
- * 1. Checks if the client exists on the device.
- * 2. Remounts the device's file system as read-write.
- * 3. Moves the existing webapp to a temporary location.
- * 4. Moves the new webapp to the correct location.
- * 5. Removes the old webapp.
- * 6. Updates the client manifest with the device ID and type.
- * 7. Pushes the new webapp to the device.
- * 8. Restarts the Chromium process on the device.
- * 9. Syncs the files on the device.
- * 10. Updates the client manifest to remove the device ID and type.
- *
- * @param deviceId - The ID of the device to push the webapp to.
- * @param reply - An optional callback function to handle logging and status updates.
- * @returns A Promise that resolves when the webapp has been pushed to the device.
- */
 export const HandlePushWebApp = async (
   deviceId: string,
   reply?: (channel: string, data: ReplyData) => void
@@ -391,13 +344,6 @@ export const HandlePushWebApp = async (
   }
 }
 
-/**
- * Handles the download and extraction of a webapp zip file from a given URL.
- *
- * @param reply - An optional function to send logging updates to the frontend.
- * @param zipFileUrl - The URL of the zip file to download and extract.
- * @returns A Promise that resolves when the extraction is complete.
- */
 export const HandleWebappZipFromUrl = async (
   reply: ReplyFn | undefined,
   zipFileUrl: string
@@ -505,13 +451,6 @@ export const HandleWebappZipFromUrl = async (
   request.end()
 }
 
-/**
- * Updates the client manifest file with the provided partial manifest data.
- *
- * @param partialManifest - The partial manifest data to be merged with the existing manifest.
- * @param reply - An optional callback function to provide logging updates.
- * @returns A Promise that resolves when the manifest file has been updated.
- */
 export const handleClientManifestUpdate = async (
   partialManifest: Partial<Client>,
   reply?: (channel: string, data: ReplyData) => void
@@ -548,12 +487,6 @@ export const handleClientManifestUpdate = async (
   }
 }
 
-/**
- * Checks if the client manifest file exists in the user's data directory.
- *
- * @param reply - An optional callback function to provide logging updates.
- * @returns A Promise that resolves to a boolean indicating whether the manifest file exists.
- */
 export const checkForClient = async (
   reply?: (channel: string, data: ReplyData) => void
 ): Promise<boolean> => {
@@ -576,12 +509,6 @@ export const checkForClient = async (
   return manifestExists
 }
 
-/**
- * Retrieves the client manifest from the user's data directory.
- *
- * @param reply - An optional callback function to provide logging updates.
- * @returns A Promise that resolves to the client manifest, or null if the manifest file is not found or cannot be parsed.
- */
 export const getClientManifest = async (
   reply?: (channel: string, data: ReplyData) => void
 ): Promise<ClientManifest | null> => {
@@ -649,14 +576,6 @@ const scriptDir = isDevelopment
   ? join(__dirname, '..', '..', 'resources', 'scripts')
   : join(process.resourcesPath, 'scripts')
 
-/**
- * Sets up a proxy configuration on the device by uploading a setup script, creating a Supervisor configuration file, and starting the proxy program.
- *
- * @deprecated - Do not use this. It is untested and the functionality of it is unknown.
- * @param reply - A function to provide logging and feedback during the setup process.
- * @param deviceId - The ID of the device to set up the proxy on.
- * @returns A Promise that resolves when the proxy setup is complete.
- */
 export const SetupProxy = async (
   reply: (channel: string, data: ReplyData) => void,
   deviceId: string
