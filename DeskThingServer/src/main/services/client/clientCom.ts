@@ -8,7 +8,7 @@ import { readData } from '../../handlers/dataHandler'
 
 export const handleClientMessage = async (data: SocketData): Promise<void> => {
   const { type, payload } = data
-  const musicHandler = await import('../../handlers/musicHandler')
+  const musicHandler = await import('../../services/music/musicHandler')
   switch (type) {
     case 'song':
       musicHandler.default.handleMusicMessage(payload as SongData)

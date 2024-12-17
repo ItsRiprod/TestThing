@@ -18,6 +18,12 @@
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir"
   },
+  "build": {
+    "squirrelWindows": {
+      "iconUrl": "https://raw.githubusercontent.com/ItsRiprod/DeskThing/main/resources/icon.ico",
+      "loadingGif": "build/install-spinner.gif"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/itsriprod/DeskThing.git"
@@ -33,13 +39,13 @@
     "cross-unzip": "^0.2.1",
     "electron-updater": "^6.1.7",
     "express": "^4.21.0",
-    "fast-average-color-node": "^3.1.0",
     "lottie-react": "^2.4.0",
     "react-qr-code": "^2.0.15",
     "react-rewards": "^2.0.4",
     "react-router-dom": "^6.26.2",
     "react-select": "^5.8.3",
     "react-tag-input": "^6.10.3",
+    "sharp": "^0.33.5",
     "update-electron-app": "^3.1.0",
     "uuid": "^10.0.0",
     "ws": "^8.17.1",

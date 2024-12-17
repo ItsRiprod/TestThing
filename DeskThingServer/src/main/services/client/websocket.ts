@@ -226,7 +226,7 @@ export const setupServer = async (): Promise<void> => {
           handleServerMessage(socket, client, messageData)
         } else if (messageData.app === 'utility' || messageData.app === 'music') {
           // Handle music requests
-          const MusicHandler = (await import('../../handlers/musicHandler')).default
+          const MusicHandler = (await import('../../services/music/musicHandler')).default
           MusicHandler.handleClientRequest(messageData)
         }
 
