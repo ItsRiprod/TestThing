@@ -59,6 +59,5 @@ npmRebuild: false
 publish:
   provider: generic
   url: https://github.com/ItsRiprod/TestThing
-  updateConfigPath: latest.yml
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
