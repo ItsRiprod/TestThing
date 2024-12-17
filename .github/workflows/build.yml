@@ -87,7 +87,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deskthing-${{matrix.os}}
-          path: ${{ github.workspace }}/DeskThingServer/dist/deskthing*.exe
+          path: |
+            ${{ github.workspace }}/DeskThingServer/dist/deskthing*.exe
+            ${{ github.workspace }}/DeskThingServer/dist/latest*.yml
 
       - name: Upload linux binaries to artifacts
         if: matrix.os == 'ubuntu-latest'

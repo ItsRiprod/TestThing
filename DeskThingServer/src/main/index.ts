@@ -22,6 +22,9 @@ import { autoUpdater } from 'electron-updater'
 // Replace updateElectronApp with:
 autoUpdater.checkForUpdatesAndNotify()
 
+autoUpdater.logger = console
+autoUpdater.allowDowngrade = true
+
 // Add these handlers for better user feedback
 autoUpdater.on('update-available', (info) => {
   mainWindow?.webContents.send('update-available', info)
