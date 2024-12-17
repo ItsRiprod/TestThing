@@ -24,15 +24,11 @@ win:
   extraFiles:
     - from: 'adb_source/win'
       to: 'resources/win'
-  target:
-  - target: nsis
-    arch:
-      - x64
 nsis:
   artifactName: ${name}-${os}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
-  createDesktopShortcut: onFirstRunOnly
+  createDesktopShortcut: always
   oneClick: true
   perMachine: false
 mac:
