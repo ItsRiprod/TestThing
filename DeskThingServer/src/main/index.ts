@@ -19,12 +19,15 @@ import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { autoUpdater } from 'electron-updater'
 
+autoUpdater.autoRunAppAfterInstall = true
+autoUpdater.disableWebInstaller = true
+autoUpdater.allowPrerelease = true
+
 // Replace updateElectronApp with:
 autoUpdater.checkForUpdatesAndNotify()
 
 autoUpdater.logger = console
 autoUpdater.allowDowngrade = true
-autoUpdater.disableWebInstaller = true
 autoUpdater.autoDownload = true
 autoUpdater.autoInstallOnAppQuit = true
 autoUpdater.forceDevUpdateConfig = true
