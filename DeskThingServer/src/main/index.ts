@@ -24,6 +24,10 @@ autoUpdater.checkForUpdatesAndNotify()
 
 autoUpdater.logger = console
 autoUpdater.allowDowngrade = true
+autoUpdater.disableWebInstaller = true
+autoUpdater.autoDownload = true
+autoUpdater.autoInstallOnAppQuit = true
+autoUpdater.forceDevUpdateConfig = true
 
 // Add these handlers for better user feedback
 autoUpdater.on('update-available', (info) => {

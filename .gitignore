@@ -130,3 +130,5 @@ dist
 .pnp.*
 /DeskThingServer/.vscode
 /DeskThingOld
+*.pem
+*.pfx

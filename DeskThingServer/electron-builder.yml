@@ -24,6 +24,8 @@ win:
   extraFiles:
     - from: 'adb_source/win'
       to: 'resources/win'
+  certificateFile: certificate.pfx
+  certificatePassword: ''
 nsis:
   artifactName: ${name}-${os}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -58,6 +60,6 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  url: https://github.com/ItsRiprod/TestThing/releases/download/v${version}
+  url: https://github.com/ItsRiprod/TestThing/releases/latest/download/
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
