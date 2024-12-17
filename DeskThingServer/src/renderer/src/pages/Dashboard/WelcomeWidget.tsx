@@ -53,7 +53,7 @@ const WelcomeWidget: React.FC = () => {
           >
             <IconAlbum className="fill-[#ff0033] group-hover:fill-white" />
             <p className="group-hover:hidden">Getting Started</p>
-            <p className="group-hover:inline hidden">Running v0.10.11</p>
+            <p className="group-hover:inline hidden">Running v0.10.12</p>
           </Button>
         </div>
       </div>
