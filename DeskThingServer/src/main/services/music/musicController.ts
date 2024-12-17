@@ -14,7 +14,6 @@ export class MusicController {
 export default MusicController.getInstance()
 
 export const getNowPlaying = async (): Promise<string | null> => {
-
   try {
     const sources = await desktopCapturer.getSources({
       types: ['window'],

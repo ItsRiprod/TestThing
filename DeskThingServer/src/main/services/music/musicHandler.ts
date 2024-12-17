@@ -12,7 +12,7 @@ import { getAppByName } from '../../handlers/configHandler'
 import appState from '../apps/appState'
 import { sendMessageToClients } from '../client/clientCom'
 import { getColorFromImage } from './musicUtils'
-import { getNowPlaying } from './musicController'
+// import { getNowPlaying } from './musicController'
 
 export class MusicHandler {
   private static instance: MusicHandler
