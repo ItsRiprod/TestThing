@@ -57,7 +57,8 @@ appImage:
   artifactName: ${name}-${os}-${version}-setup.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://github.com/ItsRiprod/TestThing
+  provider: github
+  releaseType: release
+  channel: latest
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/

@@ -16,7 +16,7 @@ const WelcomeWidget: React.FC = () => {
 
     return () => clearTimeout(timer)
   }, [])
-
+  const version = process.env.PACKAGE_VERSION
   return (
     <div className="h-full relative overflow-hidden">
       <div className="w-full h-full flex flex-col justify-center items-center">
@@ -53,7 +53,7 @@ const WelcomeWidget: React.FC = () => {
           >
             <IconAlbum className="fill-[#ff0033] group-hover:fill-white" />
             <p className="group-hover:hidden">Getting Started</p>
-            <p className="group-hover:inline hidden">Running v0.10.11</p>
+            <p className="group-hover:inline hidden">Running v{version}</p>
           </Button>
         </div>
       </div>

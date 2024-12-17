@@ -17,7 +17,26 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-import 'update-electron-app'
+import { autoUpdater } from 'electron-updater'
+
+// Replace updateElectronApp with:
+autoUpdater.checkForUpdatesAndNotify()
+
+// Add these handlers for better user feedback
+autoUpdater.on('update-available', (info) => {
+  mainWindow?.webContents.send('update-available', info)
+  console.log(info)
+})
+
+autoUpdater.on('download-progress', (progress) => {
+  mainWindow?.webContents.send('update-progress', progress)
+  console.log(progress)
+})
+
+autoUpdater.on('update-downloaded', (info) => {
+  mainWindow?.webContents.send('update-ready', info)
+  console.log(info)
+})
 
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null
