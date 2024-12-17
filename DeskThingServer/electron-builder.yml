@@ -51,6 +51,7 @@ dmg:
 linux:
   target:
     - AppImage
+    - deb
   maintainer: Riprod
   category: Utility
   extraFiles:
@@ -60,8 +61,7 @@ appImage:
   artifactName: ${name}-${os}-${version}-setup.${ext}
 npmRebuild: false
 publish:
-  provider: github
-  owner: ItsRiprod
-  repo: TestThing
+  provider: generic
+  url: https://github.com/ItsRiprod/TestThing
 electronDownload:
   mirror: https://npmmirror.com/mirrors/electron/
