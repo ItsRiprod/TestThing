@@ -17,24 +17,24 @@ import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@
 import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { autoUpdater } from 'electron-updater'
-import squirrelStartup from 'electron-squirrel-startup'
+//import { autoUpdater } from 'electron-updater'
+//import squirrelStartup from 'electron-squirrel-startup'
 
-if (squirrelStartup) {
-  app.quit()
-}
+// if (squirrelStartup) {
+//   app.quit()
+// }
 
-autoUpdater.on('error', (error) => {
-  console.log('Update error:', error)
-})
+// autoUpdater.on('error', (error) => {
+//   console.log('Update error:', error)
+// })
 
-autoUpdater.on('checking-for-update', () => {
-  console.log('Checking for updates...')
-})
+// autoUpdater.on('checking-for-update', () => {
+//   console.log('Checking for updates...')
+// })
 
-autoUpdater.on('update-available', (info) => {
-  console.log('Update available:', info)
-})
+// autoUpdater.on('update-available', (info) => {
+//   console.log('Update available:', info)
+// })
 
 // Global window and tray references to prevent garbage collection
 let mainWindow: BrowserWindow | null = null
@@ -398,7 +398,7 @@ if (!app.requestSingleInstanceLock()) {
 
   // Initialize application when ready
   app.whenReady().then(async () => {
-    autoUpdater.checkForUpdatesAndNotify()
+    // autoUpdater.checkForUpdatesAndNotify()
     // Handle custom protocol URLs
     app.on('open-url', (event, url) => {
       event.preventDefault()
