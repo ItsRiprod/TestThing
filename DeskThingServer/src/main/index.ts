@@ -14,11 +14,11 @@
 
 console.log('[Index] Starting')
 import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@shared/types'
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage, autoUpdater } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { autoUpdater } from 'electron-updater'
 
+// Switch to electron-updater and dont use this.
 autoUpdater.autoRunAppAfterInstall = true
 autoUpdater.disableWebInstaller = true
 autoUpdater.allowPrerelease = true
