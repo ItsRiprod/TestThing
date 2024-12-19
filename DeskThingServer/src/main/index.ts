@@ -14,38 +14,27 @@
 
 console.log('[Index] Starting')
 import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@shared/types'
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage, autoUpdater } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
+import { getAutoUpdater } from './services/updater/autoUpdater'
+import loggingStore from './stores/loggingStore'
+const autoUpdater = getAutoUpdater()
 
-// Switch to electron-updater and dont use this.
-autoUpdater.autoRunAppAfterInstall = true
-autoUpdater.disableWebInstaller = true
-autoUpdater.allowPrerelease = true
-
-// Replace updateElectronApp with:
-autoUpdater.checkForUpdatesAndNotify()
-
-autoUpdater.logger = console
-autoUpdater.allowDowngrade = true
-autoUpdater.autoDownload = true
-autoUpdater.autoInstallOnAppQuit = true
-autoUpdater.forceDevUpdateConfig = true
-
-// Add these handlers for better user feedback
-autoUpdater.on('update-available', (info) => {
-  mainWindow?.webContents.send('update-available', info)
-  console.log(info)
-})
-
-autoUpdater.on('download-progress', (progress) => {
-  mainWindow?.webContents.send('update-progress', progress)
-  console.log(progress)
-})
-
-autoUpdater.on('update-downloaded', (info) => {
-  mainWindow?.webContents.send('update-ready', info)
-  console.log(info)
+autoUpdater.checkForUpdatesAndNotify().then((downloadNotification) => {
+  if (downloadNotification) {
+    loggingStore.log(
+      MESSAGE_TYPES.DEBUG,
+      `Update notification:
+      updateInfo: ${JSON.stringify(downloadNotification.updateInfo)}
+      downloadPromise: ${downloadNotification.downloadPromise ? 'Promise<Array<string>>' : 'null'}
+      cancellationToken: ${downloadNotification.cancellationToken ? 'CancellationToken' : 'undefined'}
+      versionInfo: ${JSON.stringify(downloadNotification.versionInfo)}
+    `
+    )
+  } else {
+    loggingStore.log(MESSAGE_TYPES.DEBUG, 'No update available')
+  }
 })
 
 // Global window and tray references to prevent garbage collection

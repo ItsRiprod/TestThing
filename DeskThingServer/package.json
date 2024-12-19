@@ -4,7 +4,7 @@
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
-  "homepage": "https://github.com/ItsRiprod/DeskThing",
+  "homepage": "https://github.com/ItsRiprod/TestThing",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -68,5 +68,106 @@
     "typedoc": "^0.26.10",
     "typescript": "^5.3.3",
     "vite": "^5.0.12"
+  },
+  "build": {
+    "appId": "com.deskthing.app",
+    "productName": "DeskThing",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "!**/.vscode/*",
+      "!src/*",
+      "!electron.vite.config.{js,ts,mjs,cjs}",
+      "!{.eslintignore,.eslintrc.cjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}",
+      "!{.env,.env.*,.npmrc,pnpm-lock.yaml}",
+      "!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}"
+    ],
+    "asarUnpack": [
+      "resources/**",
+      "bin/**",
+      "!resources/{,/**/}*.{h,hpp,cpp,cc,cxx}"
+    ],
+    "protocols": [
+      {
+        "name": "DeskThing Protocol",
+        "schemes": [
+          "deskthing"
+        ]
+      }
+    ],
+    "win": {
+      "executableName": "DeskThing",
+      "artifactName": "${name}-${os}-${version}-setup.${ext}",
+      "publisherName": "Riprod",
+      "extraFiles": [
+        {
+          "from": "adb_source/win",
+          "to": "resources/win"
+        }
+      ]
+    },
+    "nsis": {
+      "artifactName": "${name}-${os}-${version}-setup.${ext}",
+      "shortcutName": "${productName}",
+      "uninstallDisplayName": "${productName}",
+      "createDesktopShortcut": "always",
+      "oneClick": true,
+      "perMachine": false
+    },
+    "mac": {
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extendInfo": [
+        {
+          "NSCameraUsageDescription": "Application requests access to the device's camera."
+        },
+        {
+          "NSMicrophoneUsageDescription": "Application requests access to the device's microphone."
+        },
+        {
+          "NSDocumentsFolderUsageDescription": "Application requests access to the user's Documents folder."
+        },
+        {
+          "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
+        }
+      ],
+      "notarize": false,
+      "extraFiles": [
+        {
+          "from": "adb_source/mac",
+          "to": "resources/mac"
+        }
+      ]
+    },
+    "dmg": {
+      "artifactName": "${name}-${os}-${arch}-${version}-setup.${ext}"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "Riprod",
+      "category": "Utility",
+      "extraFiles": [
+        {
+          "from": "adb_source/linux",
+          "to": "resources/linux"
+        }
+      ]
+    },
+    "appImage": {
+      "artifactName": "${name}-${os}-${version}-setup.${ext}"
+    },
+    "npmRebuild": false,
+    "publish": {
+      "provider": "github",
+      "owner": "ItsRiprod",
+      "repo": "TestThing",
+      "releaseType": "release"
+    }
+  },
+  "electronDownload": {
+    "mirror": "https://npmmirror.com/mirrors/electron/"
   }
 }
