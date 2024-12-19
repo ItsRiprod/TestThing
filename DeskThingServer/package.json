@@ -73,7 +73,6 @@
   },
   "build": {
     "appId": "com.deskthing.app",
-    "afterSign": "./build/notarize.js",
     "productName": "DeskThing",
     "directories": {
       "buildResources": "build"
@@ -120,10 +119,10 @@
     },
     "mac": {
       "gatekeeperAssess": false,
-      "hardenedRuntime": true,
       "type": "distribution",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
+      "afterSign": "./build/notarize.js",
       "identity": "${env.CSC_IDENTITY}",
       "extendInfo": [
         {
@@ -139,6 +138,7 @@
           "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
         }
       ],
+      "hardenedRuntime": true,
       "extraFiles": [
         {
           "from": "adb_source/mac",
