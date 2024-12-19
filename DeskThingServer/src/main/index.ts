@@ -87,7 +87,7 @@ autoUpdater.on('update-downloaded', (info) => {
   dialog.showMessageBox(mainWindow!, options).then((response) => {
     if (response.response === 0) {
       // User clicked "Yes"
-      autoUpdater.quitAndInstall(true, true)
+      autoUpdater.quitAndInstall(false, true)
     }
   })
 })
