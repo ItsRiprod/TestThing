@@ -28,6 +28,7 @@ import {
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { getAutoUpdater } from './services/updater/autoUpdater'
+import loggingStore from './stores/loggingStore'
 const autoUpdater = getAutoUpdater()
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -35,6 +36,21 @@ const isDev = process.env.NODE_ENV === 'development'
 if (isDev) {
   autoUpdater.allowPrerelease = true
   autoUpdater.forceDevUpdateConfig = true
+}
+
+autoUpdater.logger = {
+  info: (message): void => {
+    loggingStore.log(MESSAGE_TYPES.LOGGING, message, 'AutoUpdater')
+  },
+  warn: (message): void => {
+    loggingStore.log(MESSAGE_TYPES.WARNING, message, 'AutoUpdater')
+  },
+  error: (message): void => {
+    loggingStore.log(MESSAGE_TYPES.ERROR, message, 'AutoUpdater')
+  },
+  debug: (message): void => {
+    loggingStore.log(MESSAGE_TYPES.DEBUG, message, 'AutoUpdater')
+  }
 }
 
 autoUpdater.setFeedURL({
@@ -47,8 +63,10 @@ autoUpdater.setFeedURL({
 autoUpdater.checkForUpdatesAndNotify().then((downloadNotification) => {
   if (downloadNotification) {
     // Handle the update notification
+    loggingStore.log(MESSAGE_TYPES.DEBUG, 'Update notification: ' + downloadNotification)
     console.log('Update notification:', downloadNotification)
   } else {
+    loggingStore.log(MESSAGE_TYPES.DEBUG, 'No update available')
     console.log('No update available')
   }
 })
@@ -57,6 +75,7 @@ autoUpdater.checkForUpdatesAndNotify().then((downloadNotification) => {
 autoUpdater.on('update-downloaded', (info) => {
   // Prompt the user to quit and install the update
   console.log('Update downloaded:', info)
+  loggingStore.log(MESSAGE_TYPES.DEBUG, 'Update downloaded: ' + JSON.stringify(info))
   const options: MessageBoxOptions = {
     type: 'info',
     title: 'Update Available',
@@ -71,6 +90,18 @@ autoUpdater.on('update-downloaded', (info) => {
       autoUpdater.quitAndInstall(true, true)
     }
   })
+})
+
+// Log update download progress
+autoUpdater.on('download-progress', (progressObj) => {
+  let logMessage = `Download progress: ${progressObj.percent}%`
+  if (progressObj.bytesPerSecond) {
+    logMessage += ` - ${progressObj.bytesPerSecond} bytes/sec`
+  }
+  if (progressObj.total) {
+    logMessage += ` - ${progressObj.transferred}/${progressObj.total}`
+  }
+  loggingStore.log(MESSAGE_TYPES.INFO, logMessage)
 })
 
 // Global window and tray references to prevent garbage collection
