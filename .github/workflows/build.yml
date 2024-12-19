@@ -29,7 +29,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Install the Apple certificate and provisioning profile
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
@@ -67,14 +66,10 @@ jobs:
         env:
           FL_NOTARIZE_ASC_PROVIDER: ${{ secrets.APPLE_TEAM_ID }}
           DEBUG: electron-builder,electron-notarize*
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          # APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          # CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
-          # APP_BUNDLE_ID: "com.deskthing.app"
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          # KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-          # CSC_NAME: ${{ secrets.CSC_IDENTITY }} 
+          CSC_LINK: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          CSC_KEY_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          CSC_KEYCHAIN: ${{ secrets.KEYCHAIN_PASSWORD }}
         with:
           mac_certs: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           mac_certs_password: ${{ secrets.P12_PASSWORD }}

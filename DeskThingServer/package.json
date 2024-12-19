@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.66",
+  "version": "0.10.67",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
