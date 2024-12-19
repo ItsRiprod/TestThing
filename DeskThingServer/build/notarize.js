@@ -12,8 +12,7 @@ exports.default = async function notarizing(context) {
   console.log('Notarizing...')
 
   const appBundleId = 'com.deskthing.app'
-  const appName = context.packager.appInfo.productFilename
-  const appPath = path.normalize(path.join(context.appOutDir, `${appName}.app`))
+  const appPath = path.normalize(path.join(context.appOutDir, `DeskThing.app`))
   const appleId = process.env.APPLE_ID
   const teamId = process.env.APPLE_TEAM_ID
   const appleIdPassword = process.env.APPLE_ID_PASSWORD
@@ -25,15 +24,19 @@ exports.default = async function notarizing(context) {
     console.warn('Not notarizing: Missing APPLE_ID_PASSWORD environment variable')
     return
   }
+  if (!teamId) {
+    console.warn('Not notarizing: Missing APPLE_TEAM_ID environment variable')
+    return
+  }
 
   try {
     return await notarize({
       tool: 'notarytool',
       appBundleId,
       appPath,
-      teamId,
       appleId,
-      appleIdPassword
+      appleIdPassword,
+      teamId
     })
   } catch (error) {
     console.error('Error when notarizing app: ', error, '\nSkipping...')
