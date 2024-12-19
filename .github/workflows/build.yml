@@ -65,8 +65,6 @@ jobs:
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1
         env:
-          ACTIONS_RUNNER_DEBUG: true
-          ACTIONS_STEP_DEBUG: true
           FL_NOTARIZE_ASC_PROVIDER: ${{ secrets.APPLE_TEAM_ID }}
           DEBUG: electron-builder,electron-notarize*
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -75,8 +73,8 @@ jobs:
           # CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
           # APP_BUNDLE_ID: "com.deskthing.app"
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-          CSC_NAME: ${{ secrets.CSC_IDENTITY }} 
+          # KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          # CSC_NAME: ${{ secrets.CSC_IDENTITY }} 
         with:
           mac_certs: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           mac_certs_password: ${{ secrets.P12_PASSWORD }}
