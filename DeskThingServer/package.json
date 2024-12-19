@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.64",
+  "version": "0.10.65",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -120,6 +120,7 @@
     },
     "mac": {
       "gatekeeperAssess": false,
+      "notarize": true,
       "type": "distribution",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
@@ -145,7 +146,6 @@
         }
       ]
     },
-    "afterSign": "./build/notarize.js",
     "dmg": {
       "sign": false,
       "artifactName": "${name}-${os}-${arch}-${version}-setup.${ext}"
