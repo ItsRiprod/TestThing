@@ -64,9 +64,12 @@ jobs:
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
           CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          CSC_NAME: ${{ secrets.CSC_IDENTITY }} 
         with:
-          args: "--mac.identity=${{ env.CSC_IDENTITY }}"
+          mac_certs: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          mac_certs_password: ${{ secrets.P12_PASSWORD }}
           github_token: ${{ secrets.github_token }}
           package_manager: npm
           package_root: ${{ github.workspace }}/DeskThingServer
