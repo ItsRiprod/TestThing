@@ -38,6 +38,7 @@ exports.default = async function notarizing(context) {
     const notarizeOptions = {
       tool: 'notarytool',
       appPath,
+      appBundleId,
       appleId,
       appleIdPassword,
       teamId
