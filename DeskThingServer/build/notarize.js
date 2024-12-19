@@ -29,15 +29,21 @@ exports.default = async function notarizing(context) {
     return
   }
 
+  if (!appBundleId) {
+    console.warn('Not notarizing: Missing appBundleId environment variable')
+    return
+  }
+
   try {
-    return await notarize({
+    const notarizeOptions = {
       tool: 'notarytool',
-      appBundleId,
       appPath,
       appleId,
       appleIdPassword,
       teamId
-    })
+    }
+
+    return await notarize(notarizeOptions)
   } catch (error) {
     console.error('Error when notarizing app: ', error, '\nSkipping...')
   }
