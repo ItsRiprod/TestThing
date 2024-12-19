@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.40",
+  "version": "0.10.41",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -71,6 +71,7 @@
   },
   "build": {
     "appId": "com.deskthing.app",
+    "afterSign": "./build/notarize.js",
     "productName": "DeskThing",
     "directories": {
       "buildResources": "build"
@@ -116,6 +117,10 @@
       "perMachine": false
     },
     "mac": {
+      "gatekeeperAssess": false,
+      "hardendRuntime": true,
+      "type": "distribution",
+      "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
       "identity": "${env.CSC_IDENTITY}",
       "extendInfo": [
@@ -132,7 +137,6 @@
           "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
         }
       ],
-      "notarize": false,
       "extraFiles": [
         {
           "from": "adb_source/mac",
