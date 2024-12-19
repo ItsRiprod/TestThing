@@ -31,7 +31,6 @@ exports.default = async function notarizing(context) {
 
   try {
     return await notarize({
-      tool: 'notarytool',
       appBundleId,
       appPath,
       appleId,
