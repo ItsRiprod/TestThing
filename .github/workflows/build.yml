@@ -62,6 +62,7 @@ jobs:
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
           CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
         with:
           args: "--mac.identity=${{ env.CSC_IDENTITY }}"
