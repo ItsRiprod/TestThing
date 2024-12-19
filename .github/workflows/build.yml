@@ -59,8 +59,12 @@ jobs:
 
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
         with:
-          args: "--mac.identity=$KEYCHAIN_PASSWORD"
+          args: "--mac.identity=${{ env.CSC_IDENTITY }}"
           github_token: ${{ secrets.github_token }}
           package_manager: npm
           package_root: ${{ github.workspace }}/DeskThingServer
