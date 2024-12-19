@@ -101,7 +101,7 @@ autoUpdater.on('download-progress', (progressObj) => {
   if (progressObj.total) {
     logMessage += ` - ${progressObj.transferred}/${progressObj.total}`
   }
-  loggingStore.log(MESSAGE_TYPES.INFO, logMessage)
+  loggingStore.log(MESSAGE_TYPES.LOGGING, logMessage)
 })
 
 // Global window and tray references to prevent garbage collection
