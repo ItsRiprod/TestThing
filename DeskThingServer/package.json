@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.37",
+  "version": "0.10.38",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -117,6 +117,7 @@
     },
     "mac": {
       "entitlementsInherit": "build/entitlements.mac.plist",
+      "identity": "${env.CSC_IDENTITY}",
       "extendInfo": [
         {
           "NSCameraUsageDescription": "Application requests access to the device's camera."

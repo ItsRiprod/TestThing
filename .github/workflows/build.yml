@@ -38,11 +38,11 @@ jobs:
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1
         with:
+          args: "--mac.identity=null"
           github_token: ${{ secrets.github_token }}
           package_manager: npm
           package_root: ${{ github.workspace }}/DeskThingServer
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-          args: "--publish always"
 
       - name: Upload binaries to artifacts
         uses: actions/upload-artifact@v4
@@ -102,29 +102,3 @@ jobs:
             ${{ github.workspace }}/DeskThingServer/dist/deskthing*
             ${{ github.workspace }}/DeskThingServer/dist/latest*.yml
 
-  publish:
-    needs: [release, macos]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Get Current Release
-        id: get_current_release
-        uses: joutvhu/get-release@v1
-        with:
-          latest: true
-          pattern: '^v.*'
-          prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-      - uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.get_current_release.outputs.tag_name }}
-          files: |
-            deskthing-macos-aarch64/*
-            deskthing-macos-x86_64/*
-            deskthing-ubuntu-latest/*
-            deskthing-windows-latest/*

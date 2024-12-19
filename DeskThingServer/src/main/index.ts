@@ -14,27 +14,63 @@
 
 console.log('[Index] Starting')
 import { AppIPCData, AuthScopes, Client, UtilityIPCData, MESSAGE_TYPES } from '@shared/types'
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  Menu,
+  nativeImage,
+  dialog,
+  MessageBoxOptions
+} from 'electron'
 import { join, resolve } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { getAutoUpdater } from './services/updater/autoUpdater'
-import loggingStore from './stores/loggingStore'
 const autoUpdater = getAutoUpdater()
+
+const isDev = process.env.NODE_ENV === 'development'
+
+if (isDev) {
+  autoUpdater.allowPrerelease = true
+  autoUpdater.forceDevUpdateConfig = true
+}
+
+autoUpdater.setFeedURL({
+  provider: 'github',
+  owner: 'ItsRiprod',
+  repo: 'TestThing',
+  private: false
+})
 
 autoUpdater.checkForUpdatesAndNotify().then((downloadNotification) => {
   if (downloadNotification) {
-    loggingStore.log(
-      MESSAGE_TYPES.DEBUG,
-      `Update notification:
-      updateInfo: ${JSON.stringify(downloadNotification.updateInfo)}
-      downloadPromise: ${downloadNotification.downloadPromise ? 'Promise<Array<string>>' : 'null'}
-      cancellationToken: ${downloadNotification.cancellationToken ? 'CancellationToken' : 'undefined'}
-      versionInfo: ${JSON.stringify(downloadNotification.versionInfo)}
-    `
-    )
+    // Handle the update notification
+    console.log('Update notification:', downloadNotification)
   } else {
-    loggingStore.log(MESSAGE_TYPES.DEBUG, 'No update available')
+    console.log('No update available')
   }
+})
+
+// Handle the 'update-downloaded' event
+autoUpdater.on('update-downloaded', (info) => {
+  // Prompt the user to quit and install the update
+  console.log('Update downloaded:', info)
+  const options: MessageBoxOptions = {
+    type: 'info',
+    title: 'Update Available',
+    message:
+      'A new version of DeskThing is available. Do you want to quit and install the update now?',
+    buttons: ['Yes', 'No']
+  }
+
+  dialog.showMessageBox(mainWindow!, options).then((response) => {
+    if (response.response === 0) {
+      // User clicked "Yes"
+      autoUpdater.quitAndInstall(true, true)
+    }
+  })
 })
 
 // Global window and tray references to prevent garbage collection
