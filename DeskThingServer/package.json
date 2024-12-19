@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.60",
+  "version": "0.10.61",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -139,9 +139,7 @@
           "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
         }
       ],
-      "notarize": {
-        "ascProvider": "${process.env.APPLE_TEAM_ID}"
-      },
+      "notarize": true,
       "hardenedRuntime": true,
       "extraFiles": [
         {

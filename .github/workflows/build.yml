@@ -61,10 +61,10 @@ jobs:
         uses: paneron/action-electron-builder@v1.8.1
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+          # APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
-          CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
-          APP_BUNDLE_ID: "com.deskthing.app"
+          # CSC_IDENTITY: ${{ secrets.CSC_IDENTITY }}
+          # APP_BUNDLE_ID: "com.deskthing.app"
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
           CSC_NAME: ${{ secrets.CSC_IDENTITY }} 
