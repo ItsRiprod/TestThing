@@ -98,6 +98,7 @@
         ]
       }
     ],
+    "afterSign": "./build/notarize.js",
     "win": {
       "executableName": "DeskThing",
       "artifactName": "${name}-${os}-${version}-setup.${ext}",
@@ -122,7 +123,6 @@
       "type": "distribution",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
-      "afterSign": "./build/notarize.js",
       "identity": "${env.CSC_IDENTITY}",
       "extendInfo": [
         {
