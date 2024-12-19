@@ -26,7 +26,7 @@ exports.default = async function notarizing(context) {
   }
 
   try {
-    await notarize({
+    return await notarize({
       tool: 'notarytool',
       appBundleId,
       appPath,
