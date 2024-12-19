@@ -9,7 +9,10 @@ exports.default = async function notarizing(context) {
     console.log('Skipping notarization')
     return
   }
-  console.log('Notarizing...')
+  console.debug('Notarizing...')
+  console.debug('Environment variables:')
+  console.debug('APPLE_TEAM_ID:', process.env.APPLE_TEAM_ID)
+  console.debug('APPLE_ID:', process.env.APPLE_ID)
 
   const appPath = path.normalize(path.join(context.appOutDir, `DeskThing.app`))
   const appleId = process.env.APPLE_ID
@@ -29,6 +32,11 @@ exports.default = async function notarizing(context) {
   }
 
   try {
+    console.debug('Notarization options:')
+    console.debug('appPath:', appPath)
+    console.debug('teamId:', teamId)
+    console.debug('appleId:', appleId)
+
     const notarizeOptions = {
       tool: 'notarytool',
       appPath,
