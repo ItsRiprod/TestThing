@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.68",
+  "version": "0.10.69",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -119,7 +119,7 @@
       "perMachine": false
     },
     "mac": {
-      "identity": "Developer ID Application: Nathan Emerick (6G5VYVJFLX)",
+      "identity": "Nathan Emerick",
       "gatekeeperAssess": false,
       "notarize": true,
       "entitlements": "build/entitlements.mac.plist",

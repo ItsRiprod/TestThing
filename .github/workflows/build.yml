@@ -65,7 +65,6 @@ jobs:
         uses: paneron/action-electron-builder@v1.8.1
         env:
           FL_NOTARIZE_ASC_PROVIDER: ${{ secrets.APPLE_TEAM_ID }}
-          DEBUG: electron-builder,electron-notarize*
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           CSC_LINK: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           CSC_KEY_PASSWORD: ${{ secrets.P12_PASSWORD }}
