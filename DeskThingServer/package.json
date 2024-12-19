@@ -118,7 +118,7 @@
     },
     "mac": {
       "gatekeeperAssess": false,
-      "hardendRuntime": true,
+      "hardenedRuntime": true,
       "type": "distribution",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
@@ -145,6 +145,7 @@
       ]
     },
     "dmg": {
+      "sign": false,
       "artifactName": "${name}-${os}-${arch}-${version}-setup.${ext}"
     },
     "linux": {
