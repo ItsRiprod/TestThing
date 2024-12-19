@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.41",
+  "version": "0.10.43",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -31,6 +31,7 @@
     "auto-launch": "^5.0.6",
     "cors": "^2.8.5",
     "cross-unzip": "^0.2.1",
+    "electron-notarize": "^1.2.2",
     "electron-updater": "^6.1.7",
     "express": "^4.21.0",
     "lottie-react": "^2.4.0",
@@ -39,6 +40,7 @@
     "react-router-dom": "^6.26.2",
     "react-select": "^5.8.3",
     "react-tag-input": "^6.10.3",
+    "save-dev": "^0.0.1-security",
     "sharp": "^0.33.5",
     "update-electron-app": "^3.1.0",
     "uuid": "^10.0.0",
