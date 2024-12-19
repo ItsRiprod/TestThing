@@ -31,6 +31,11 @@ exports.default = async function notarizing(context) {
     return
   }
 
+  console.log('::group::Notarization Details')
+  console.log('Team ID:', teamId)
+  console.log('Apple ID:', appleId)
+  console.log('::endgroup::')
+
   try {
     console.debug('Notarization options:')
     console.debug('appPath:', appPath)
