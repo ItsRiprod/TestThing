@@ -122,6 +122,7 @@
     "mac": {
       "gatekeeperAssess": false,
       "type": "distribution",
+      "teamId": "${env.APPLE_TEAM_ID}",
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
       "extendInfo": [
@@ -138,7 +139,6 @@
           "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
         }
       ],
-      "notarize": true,
       "hardenedRuntime": true,
       "extraFiles": [
         {
