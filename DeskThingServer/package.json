@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.59",
+  "version": "0.10.60",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -140,8 +140,7 @@
         }
       ],
       "notarize": {
-        "appBundleId": "com.deskthing.app",
-        "teamId": "${process.env.APPLE_TEAM_ID}"
+        "ascProvider": "${process.env.APPLE_TEAM_ID}"
       },
       "hardenedRuntime": true,
       "extraFiles": [
