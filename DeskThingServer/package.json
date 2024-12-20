@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.71",
+  "version": "0.10.72",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -77,6 +77,7 @@
     "directories": {
       "buildResources": "build"
     },
+    "afterSign": "build/notarize.js",
     "files": [
       "!**/.vscode/*",
       "!src/*",
@@ -120,25 +121,20 @@
     },
     "mac": {
       "gatekeeperAssess": false,
-      "notarize": true,
+      "hardenedRuntime": true,
       "entitlements": "build/entitlements.mac.plist",
       "entitlementsInherit": "build/entitlements.mac.plist",
-      "extendInfo": [
-        {
-          "NSDocumentsFolderUsageDescription": "Application requests access to the user's Documents folder."
-        },
-        {
-          "NSDownloadsFolderUsageDescription": "Application requests access to the user's Downloads folder."
-        }
-      ],
+      "extendInfo": {
+        "NSAppleEventsUsageDescription": "This app requires access to send Apple Events to communicate with other applications.",
+        "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
+      },
       "category": "public.app-category.developer-tools",
       "extraFiles": [
         {
           "from": "adb_source/mac",
           "to": "resources/mac"
         }
-      ],
-      "hardenedRuntime": true
+      ]
     },
     "dmg": {
       "sign": false,
