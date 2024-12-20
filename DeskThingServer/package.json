@@ -1,6 +1,6 @@
 {
   "name": "deskthing",
-  "version": "0.10.73",
+  "version": "0.10.74",
   "description": "A DeskThing server UI to interface with the DeskThing car thing app",
   "main": "./out/main/index.js",
   "author": "Riprod",
@@ -128,6 +128,7 @@
         "NSAppleEventsUsageDescription": "This app requires access to send Apple Events to communicate with other applications.",
         "NSMicrophoneUsageDescription": "This app requires microphone access to record audio."
       },
+      "notarize": false,
       "category": "public.app-category.developer-tools",
       "extraFiles": [
         {
